@@ -275,3 +275,7 @@ This repository documents what each challenge teaches and how it was built, but 
 ## Author
 
 Jose E. Rodriguez Rios
+
+## License
+
+MIT — see [LICENSE](LICENSE).
