@@ -1,0 +1,2 @@
+# Only Forensics/aes/aes.py needs a third-party package; every other builder is standard library.
+pycryptodome>=3.19

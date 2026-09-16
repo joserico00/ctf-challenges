@@ -16,7 +16,7 @@ Solutions and flag values are intentionally **not** included (see [Solutions are
 | Category | Challenge | Skill tested | Files |
 |---|---|---|---|
 | Cryptography | A1Z26 | Letter-to-number substitution | `Cryptography/A1Z26/encoded.txt` |
-| Cryptography | Caesar | Shift cipher, trying every key | `Cryptography/Ceasar/ceasar` |
+| Cryptography | Caesar | Shift cipher, trying every key | `Cryptography/Caesar/caesar` |
 | Cryptography | ASCII | Decimal ASCII codes to text | `Cryptography/ascii/encoded.txt` |
 | Cryptography | Decimal | Decimal ASCII codes to text (second variant) | `Cryptography/decimal/encoded.txt` |
 | Cryptography | Binary | 7-bit binary ASCII | `Cryptography/binarytext/encoded.txt` |
@@ -24,16 +24,16 @@ Solutions and flag values are intentionally **not** included (see [Solutions are
 | Cryptography | Bacon | Baconian cipher (5-symbol groups) | `Cryptography/bacon/encoded.txt` |
 | Cryptography | Morse | Morse code | `Cryptography/morse_code/encode.txt` |
 | Cryptography | Vigenère | Polyalphabetic cipher with a key hint | `Cryptography/vigenere/encoded.txt`, `info.txt` |
-| Cryptography | Hash | Identifying a hash and recovering its input | `Cryptography/md5/encoded.txt` |
+| Cryptography | Hash | Identifying a hash and recovering its input | `Cryptography/hash/encoded.txt` |
 | Forensics | AES | Symmetric encryption (AES-CBC, key and IV) | `Forensics/aes/aes.py` (builder) |
 | Forensics | Dictionary attack | Cracking an unsalted SHA-256 hash with a wordlist | `Forensics/dictionary/dic.py` (builder) |
 | Forensics | MD5 file match | File integrity hashing with `md5sum` | `Forensics/md5sum/` |
-| Forensics | Photo geolocation | EXIF metadata and GPS coordinates | `Forensics/forensic phtoot/*.jpeg` |
-| Forensics | Geocodes | Turning coordinates into a place | `Forensics/geocodes/gecode1.txt` |
+| Forensics | Photo geolocation | EXIF metadata and GPS coordinates | `Forensics/forensic photos/*.jpeg` |
+| Forensics | Geocodes | Turning coordinates into a place | `Forensics/geocodes/geocode1.txt` |
 | Forensics | Strings | Pulling readable strings out of a compiled binary | `Forensics/stri.c` (source; compile it yourself) |
 | Linux commands | Flag hunt (3 flags) | `find`, hidden files, searching file contents, counting files | `Linux commands/ctfmaker.py` (builder) |
-| Linux commands | `find` level 1 | Searching a 100-directory tree | `Linux commands/find/genereate.py` (builder) |
-| Linux commands | `find` level 2 | Finding a hidden dotfile in a 100-directory tree | `Linux commands/find/genereate.py` (builder) |
+| Linux commands | `find` level 1 | Searching a 100-directory tree | `Linux commands/find/generate.py` (builder) |
+| Linux commands | `find` level 2 | Finding a hidden dotfile in a 100-directory tree | `Linux commands/find/generate.py` (builder) |
 | Linux commands | `grep` | Finding one token in a very large text file | `Linux commands/grep/generategrep.py` (builder), `workshop2.txt` |
 | Linux commands | `file` | Checking a file's real type instead of trusting its extension | none committed; one-line setup command |
 | Linux commands | `tar` | Listing and extracting `.tar.gz` archives | none committed; one-line setup command |
@@ -59,11 +59,7 @@ ctf-challenges/
 │   └── python/            pass01.py to pass12.py
 ├── Steganography/         canvas.png
 ├── errorlogs/             log-analysis challenge (build script)
-├── sharking/              HTTP traffic artifacts (shark.jpg to shark(3).jpg)
-├── Networking/            placeholders: pcap, ping, netcat, curl, ssh, scp, nmap (empty)
-├── Reverse Engineering/   placeholder (empty)
-├── Web Security/          placeholder (empty)
-└── tar/                   placeholder (empty)
+└── sharking/              HTTP traffic artifacts (shark.jpg to shark(3).jpg)
 ```
 
 ---
@@ -75,7 +71,7 @@ Ten static challenges. Each file holds a single flag-formatted string run throug
 | Challenge | What the player gets | Concept | Difficulty |
 |---|---|---|---|
 | **A1Z26** | A line of space-separated numbers from 1 to 26 | Each letter is replaced by its position in the alphabet. Introduces substitution. | Easy |
-| **Caesar** (`Ceasar/ceasar`) | One line of uppercase letters that keeps the `prefix{...}` flag shape | Caesar/ROT-N shift with an unknown shift. Players learn that 25 possible keys can simply be tried one by one. | Easy |
+| **Caesar** (`Caesar/caesar`) | One line of uppercase letters that keeps the `prefix{...}` flag shape | Caesar/ROT-N shift with an unknown shift. Players learn that 25 possible keys can simply be tried one by one. | Easy |
 | **ASCII** | Space-separated decimal numbers | Characters stored as their decimal ASCII code points | Easy |
 | **Decimal** | Space-separated decimal numbers | Same representation as ASCII, with a different message. Good for reinforcing the idea. | Easy |
 | **Binary** (`binarytext`) | Groups of 7 binary digits | Binary-encoded ASCII. Covers bits, bytes and why the groups are 7 digits long. | Easy |
@@ -83,7 +79,7 @@ Ten static challenges. Each file holds a single flag-formatted string run throug
 | **Bacon** | Groups of five `0`/`1` symbols | The Baconian cipher, where each letter is a 5-symbol group. It looks like binary, so players have to tell the two apart. | Easy-Medium |
 | **Morse** (`morse_code/encode.txt`) | Dots and dashes, with wider gaps between words | Morse code | Easy |
 | **Vigenère** | A short flag-shaped ciphertext plus `info.txt`, a Spanish-language "investigation note" that provides the key | Polyalphabetic substitution. Players use the recovered key instead of treating it as a Caesar shift. | Easy-Medium |
-| **Hash** (`md5/encoded.txt`) | A single hexadecimal hash digest | Identifying the hash algorithm from the digest, then recovering the input with a wordlist or hash-lookup service. Shows why unsalted hashes of common strings are weak. | Medium |
+| **Hash** (`hash/encoded.txt`) | A single hexadecimal hash digest | Identifying the hash algorithm from the digest, then recovering the input with a wordlist or hash-lookup service. Shows why unsalted hashes of common strings are weak. | Medium |
 
 ---
 
@@ -107,13 +103,13 @@ Ten static challenges. Each file holds a single flag-formatted string run throug
 - **How it's built:** `md.py` recreates `cybercamphashes/`, fills 10 files with random alphanumeric text, picks one file at random and prints its MD5 digest. That printed digest is the challenge prompt and is not saved to disk. The committed `file*.txt` files are a sample set; running `md.py` regenerates all of them. No answer key is included.
 - **Difficulty:** Easy
 
-### Photo geolocation: `Forensics/forensic phtoot/`
+### Photo geolocation: `Forensics/forensic photos/`
 - **Skill:** image metadata forensics. Players read EXIF data with `exiftool` or an online viewer, pull out GPS coordinates and work out where a photo was taken. It also shows how much a photo can reveal about its owner.
 - **Player gets:** six JPEG photos (`aroundtheworld`, `iliketurtles`, `memories`, `snake`, `station`, `whenyouwishuponastar`). Five contain an EXIF GPS block. `snake.jpeg` has camera metadata but no GPS block, so it needs other clues.
 - **How it's built:** static photos, no build script.
 - **Difficulty:** Easy-Medium
 
-### Geocodes: `Forensics/geocodes/gecode1.txt`
+### Geocodes: `Forensics/geocodes/geocode1.txt`
 - **Skill:** reading latitude/longitude and turning it into a place name with a map or reverse geocoding.
 - **Player gets:** one coordinate pair.
 - **Difficulty:** Easy
@@ -139,10 +135,10 @@ Ten static challenges. Each file holds a single flag-formatted string run throug
 
 ### `find` mazes: `Linux commands/find/`
 - **Skill:** searching recursively with `find` (by name, including hidden files) instead of opening directories one at a time.
-- **Player gets:** a base directory generated by `genereate.py`, containing `dir0` to `dir99`, one of which holds the flag. Neither maze is committed.
+- **Player gets:** a base directory generated by `generate.py`, containing `dir0` to `dir99`, one of which holds the flag. Neither maze is committed.
   - **Level 1** (`ctf_challenge/`): the flag file has a normal name.
   - **Level 2** (`ctf_challengelevel2/`): the flag file is a dotfile, so a plain `ls` won't show it.
-- **How it's built:** `genereate.py` removes the previous base directory (`rm -rf`), creates `num_dirs` (100) directories named `dir0` to `dir99`, picks one with `random.randint` and writes a hidden flag file (placeholder content until you set your flag) into it. As written, the script builds Level 2. Level 1 comes from the same approach with base directory `ctf_challenge` and a non-hidden file name. Parameters are `base_dir`, `num_dirs`, and the flag file name and content.
+- **How it's built:** `generate.py` removes the previous base directory, creates `num_dirs` (100) directories named `dir0` to `dir99`, picks one with `random.randint` and writes a hidden flag file (placeholder content until you set your flag) into it. As written, the script builds Level 2. Level 1 comes from the same approach with base directory `ctf_challenge` and a non-hidden file name. Parameters are `base_dir`, `num_dirs`, and the flag file name and content.
 - `find/level/` and `find/2/` are empty placeholders.
 - **Difficulty:** Easy (both levels; Level 2 adds the hidden-file twist)
 
@@ -209,22 +205,16 @@ The flags in the scripts are placeholders (`cybercamp{your_flag_here}`, or `CTF{
 ## Network forensics: `sharking/`
 - **Skill:** traffic analysis with Wireshark, including exporting objects from HTTP traffic, and file-signature analysis for data that won't open as-is.
 - **Player gets:** four `.jpg` files (`shark.jpg`, `shark(1).jpg`, `shark(2).jpg`, `shark(3).jpg`). None of them starts with a JPEG header, so they are pieces of image data rather than complete images. The `(n)` suffixes suggest these objects were exported from a web traffic capture.
-- **How it's built:** no capture file or build script is included (`Networking/pcap/` is empty).
+- **How it's built:** no capture file or build script is included; the four objects were exported from a capture that is not in the repository.
 - **Difficulty:** Medium
 
 ---
 
-## Placeholder folders
+## Planned categories
 
-These folders exist but have no content yet (planned categories):
-
-- `Reverse Engineering/`
-- `Web Security/`
-- `Networking/`, with empty `pcap/`, `ping/`, `netcat/`, `curl/`, `ssh/`, `scp/` and `nmap/`
-- `tar/` (top level; the actual tar challenge lives in `Linux commands/tar/`)
-- `Forensics/strings/`, `Linux commands/find/level/`, `Linux commands/find/2/`
-
-Git does not track empty directories, so these may not appear in a clone.
+Not written yet, and not in the repository: reverse engineering, web security, and
+networking challenges (pcap, ping, netcat, curl, ssh, scp, nmap). The `tar` challenge
+lives in `Linux commands/` and is built with the command in the table below.
 
 ---
 
@@ -232,7 +222,7 @@ Git does not track empty directories, so these may not appear in a clone.
 
 ### Requirements
 - Python 3.6+ (the scripts use f-strings)
-- [PyCryptodome](https://pypi.org/project/pycryptodome/) for `Forensics/aes/aes.py` (`pip install pycryptodome`)
+- [PyCryptodome](https://pypi.org/project/pycryptodome/) for `Forensics/aes/aes.py`: `pip install -r requirements.txt`
 - A C compiler (`cc`, `gcc` or `clang`) to build the strings binary
 - Standard Unix tools for players: `find`, `grep`, `file`, `tar`, `md5sum`/`md5`, `strings`, `sha256sum`. `exiftool` is recommended for the photo challenges.
 
@@ -241,7 +231,7 @@ The repository ships with placeholder flags only, and the files players receive 
 
 - `Forensics/aes/aes.py`, `Forensics/stri.c` and `errorlogs/err.py` (`cybercamp{your_flag_here}`)
 - `Linux commands/ctfmaker.py`, for both flag files (`CYBERCAMP{your_flag_here}`)
-- `Linux commands/find/genereate.py` and `Linux commands/grep/generategrep.py` (`camp{your_flag_here}`)
+- `Linux commands/find/generate.py` and `Linux commands/grep/generategrep.py` (`camp{your_flag_here}`)
 - `Forensics/dictionary/dic.py`: the chosen password (a placeholder 8-letter word, marked with a comment)
 - `Scripting-Programming/python/pass01.py` to `pass12.py` (`cybercamp{your_flag_here}`, or `CTF{your_flag_here}` in pass07). In `pass04.py` and `pass06.py` the flag is spelled out as a character or part list, and in `pass08.py` it is padded with extra `1`s; keep those mechanics when you substitute your flag.
 - The `file` and `tar` challenges have no script: put your flag directly into their setup commands below.
@@ -252,7 +242,7 @@ Run each builder **from its own folder**, because the scripts write output relat
 | Challenge | Command (run inside the folder) | Produces | Randomized |
 |---|---|---|---|
 | Flag hunt | `python3 ctfmaker.py` in `Linux commands/` | `ctf_challenge/flags/` and three printed tasks | No |
-| `find` maze | `python3 genereate.py` in `Linux commands/find/` | `ctf_challengelevel2/` (100 dirs, 1 flag); edit `base_dir` and the flag file name to build Level 1 (`ctf_challenge/`) | Flag directory |
+| `find` maze | `python3 generate.py` in `Linux commands/find/` | `ctf_challengelevel2/` (100 dirs, 1 flag); edit `base_dir` and the flag file name to build Level 1 (`ctf_challenge/`) | Flag directory |
 | `grep` | `python3 generategrep.py` in `Linux commands/grep/` | `challenge.txt` | Filler words, flag position |
 | MD5 file match | `python3 md.py` in `Forensics/md5sum/` | `cybercamphashes/file1.txt` to `file10.txt` (replacing the committed sample) plus the target hash on stdout | File contents, chosen file |
 | Dictionary attack | `python3 dic.py` in `Forensics/dictionary/` | `dictionary.txt`, `hashed_password.txt` | Decoy words |
@@ -265,12 +255,12 @@ Run each builder **from its own folder**, because the scripts write output relat
 Replace `cybercamp{your_flag_here}` in the last two commands with your own flag. The Cryptography, photo geolocation, geocodes, Steganography and sharking challenges are static files, ready to hand out as they are. The Python scripting challenges are handed out as-is once their flags are set.
 
 ### Hosting notes
-- **Destructive rebuilds:** `ctfmaker.py`, `genereate.py` and `md.py` delete their previous output directory (`shutil.rmtree` / `rm -rf`) before rebuilding. The other builders overwrite their output files. Run them in a disposable copy of the repo.
+- **Destructive rebuilds:** `ctfmaker.py`, `generate.py` and `md.py` delete their previous output directory (`shutil.rmtree`) before rebuilding. The other builders overwrite their output files. Run them in a disposable copy of the repo.
 - **Record printed prompts:** `md.py` prints the target hash and `aes.py` prints the ciphertext without saving them. Copy them into your CTF platform when you build.
-- **Build the `find` mazes before hosting:** neither maze is committed. Run `genereate.py` once for Level 2, and again with `base_dir` set to `ctf_challenge` and a non-hidden flag file name for Level 1.
+- **Build the `find` mazes before hosting:** neither maze is committed. Run `generate.py` once for Level 2, and again with `base_dir` set to `ctf_challenge` and a non-hidden flag file name for Level 1.
 - **Compile `flag_finder` for your target:** build it from `stri.c` on the machine or VM players will use.
 - **Missing folders:** `Linux commands/file/` and `Linux commands/tar/` contain no tracked files, so they may not exist in a clone. Create them (`mkdir -p`) before running the setup commands.
-- **Split player files from organizer files:** once you set your flags, the build scripts and source files (`aes.py`, `dic.py`, `ctfmaker.py`, `genereate.py`, `generategrep.py`, `err.py`, `stri.c`) contain answers in plain text. Give players only the generated artifacts. The `pass*.py` challenges include their flags by design, so treat them as practice rather than scored challenges.
+- **Split player files from organizer files:** once you set your flags, the build scripts and source files (`aes.py`, `dic.py`, `ctfmaker.py`, `generate.py`, `generategrep.py`, `err.py`, `stri.c`) contain answers in plain text. Give players only the generated artifacts. The `pass*.py` challenges include their flags by design, so treat them as practice rather than scored challenges.
 - **Don't commit your build:** generated files and scripts edited with real flags would spoil the challenges, so keep them out of any public copy of the repository.
 - **Delivery:** static artifacts can be uploaded to any CTF platform (for example, CTFd). The Linux command challenges work best copied onto a shared Linux VM or container where players have a shell.
 

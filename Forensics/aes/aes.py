@@ -5,6 +5,8 @@ from base64 import b64encode, b64decode
 # Original flag
 flag = "cybercamp{your_flag_here}"
 
+# A fixed key and IV on purpose: players are given both and decrypt the flag with them.
+# Real encryption needs a random IV per message, never a reused, guessable pair like this.
 # Key MUST be 16, 24, or 32 bytes long for AES
 key = b"this is a key123"
 

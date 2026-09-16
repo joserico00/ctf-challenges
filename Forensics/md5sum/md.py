@@ -1,6 +1,7 @@
 import hashlib
 import os
 import random
+import shutil
 import string
 
 def create_random_files(base_dir, num_files):
@@ -20,7 +21,7 @@ def main():
 
     # Clean up previous run
     if os.path.exists(base_dir):
-        os.system(f'rm -rf {base_dir}')
+        shutil.rmtree(base_dir)
     os.makedirs(base_dir, exist_ok=True)
 
     create_random_files(base_dir, num_files)

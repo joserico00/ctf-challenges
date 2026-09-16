@@ -1,5 +1,6 @@
 import os
 import random
+import shutil
 
 def create_directories(base_dir, num_dirs):
     for i in range(num_dirs):
@@ -16,12 +17,12 @@ def main():
 
     # Clean up previous run
     if os.path.exists(base_dir):
-        os.system(f'rm -rf {base_dir}')
+        shutil.rmtree(base_dir)
 
     create_directories(base_dir, num_dirs)
     hide_flag(base_dir, num_dirs)
 
-    print(f"<mark>CTF</mark> setup complete. Base directory for challenges is './{base_dir}'")
+    print(f"CTF setup complete. Base directory for challenges is './{base_dir}'")
     print(f"Find the hidden flag in one of the {num_dirs} directories!")
 
 if __name__ == '__main__':

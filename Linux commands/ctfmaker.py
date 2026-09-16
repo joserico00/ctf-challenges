@@ -17,8 +17,9 @@ def setup_ctf_folder():
     with open(os.path.join(flag_dir, 'flag1.txt'), 'w') as f:
         f.write('CYBERCAMP{your_flag_here}')
 
+    # the searchable marker task 2 asks for, in a hidden file so players need grep -r
     with open(os.path.join(flag_dir, '.flag2.txt'), 'w') as f:
-        f.write('CYBERCAMP{your_flag_here}')
+        f.write('THIS_IS_A_SECRET_MESSAGE\nCYBERCAMP{your_flag_here}')
 
     # Return path of directory to be used in the third task
     return flag_dir

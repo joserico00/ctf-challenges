@@ -25,7 +25,7 @@ def main():
     with open('challenge.txt', 'w') as f:
         f.write(text_with_flag)
 
-    print("<mark>CTF</mark> setup complete. The challenge file is 'challenge.txt'")
+    print("CTF setup complete. The challenge file is 'challenge.txt'")
     print("Find the hidden flag in the text file using grep!")
 
 if __name__ == '__main__':

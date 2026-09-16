@@ -1,3 +1,13 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Generated challenge material: build it from the scripts, do not commit it
+ctf_challenge/
+ctf_challengelevel*/
+challenge.txt
+error_log.txt
+dictionary.txt
+hashed_password.txt
+flag.tar.gz
+flag_finder
